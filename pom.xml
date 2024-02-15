@@ -37,6 +37,12 @@
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>4.2.0</version>
+            <scope>test</scope>
+        </dependency>
         <!-- CVE-2023-51074 -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
