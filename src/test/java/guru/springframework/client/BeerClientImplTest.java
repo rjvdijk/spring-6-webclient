@@ -43,4 +43,15 @@ class BeerClientImplTest {
         });
         await().untilTrue(atomicBoolean);
     }
+
+    @Test
+    void testGetBeerDto() {
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+        client.listBeerDtos().subscribe(dto ->  {
+            System.out.println(dto.getBeerName());
+            atomicBoolean.set(true);
+        });
+        await().untilTrue(atomicBoolean);
+    }
+
 }
