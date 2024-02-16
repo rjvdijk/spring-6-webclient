@@ -112,4 +112,30 @@ class BeerClientImplTest {
         await().untilTrue(atomicBoolean);
     }
 
+    @Test
+    void testPatch() {
+        final String PATCH = "789123";
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+        client.listBeerDtos()
+                .next()
+                .doOnNext(beerDTO -> beerDTO.setUpc(PATCH))
+                .flatMap(dto -> client.patchBeer(dto))
+                .subscribe(byIdDto -> {
+                    System.out.println(byIdDto.toString());
+                    atomicBoolean.set(true);
+                });
+        await().untilTrue(atomicBoolean);
+    }
+
+    @Test
+    void testDeleteBeer() {
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+        client.listBeerDtos()
+                .last()
+                .doOnNext(beerDTO -> client.deleteBeer(beerDTO.getId()))
+                .doOnSuccess(success -> atomicBoolean.set(true))
+                .subscribe();
+        await().untilTrue(atomicBoolean);
+    }
+
 }
